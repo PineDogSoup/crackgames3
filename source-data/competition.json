@@ -344,10 +344,10 @@
           "statusText": "未开始",
           "expanded": false,
           "teamIds": [
-            "t09",
-            "t11",
             "t10",
-            "t08"
+            "t12",
+            "t11",
+            "t09"
           ]
         },
         {
@@ -358,10 +358,10 @@
           "statusText": "未开始",
           "expanded": false,
           "teamIds": [
-            "t13",
-            "t01",
             "t14",
-            "t12"
+            "t08",
+            "t01",
+            "t13"
           ]
         }
       ]
@@ -409,10 +409,10 @@
           "statusText": "未开始",
           "expanded": false,
           "teamIds": [
-            "t09",
-            "t11",
             "t10",
-            "t08"
+            "t12",
+            "t11",
+            "t09"
           ]
         },
         {
@@ -423,10 +423,10 @@
           "statusText": "未开始",
           "expanded": false,
           "teamIds": [
-            "t13",
-            "t01",
             "t14",
-            "t12"
+            "t08",
+            "t01",
+            "t13"
           ]
         }
       ]
@@ -481,6 +481,15 @@
     {
       "rank": 1,
       "team": "欢乐豆",
+      "e1": 96.2,
+      "e2": 100,
+      "e3": 0,
+      "total": 196.2,
+      "status": "成绩实时"
+    },
+    {
+      "rank": 2,
+      "team": "冰燕东升",
       "e1": 100,
       "e2": 0,
       "e3": 0,
@@ -504,12 +513,25 @@
     "e1": [
       {
         "rank": 1,
+        "team": "冰燕东升",
+        "score": "18:20",
+        "points": 100
+      },
+      {
+        "rank": 2,
         "team": "欢乐豆",
-        "score": "200 Cal",
+        "score": "18:22",
+        "points": 96.2
+      }
+    ],
+    "e2": [
+      {
+        "rank": 1,
+        "team": "欢乐豆",
+        "score": "06:18",
         "points": 100
       }
     ],
-    "e2": [],
     "e3": []
   },
   "scoreEvents": [
@@ -535,9 +557,15 @@
       "ranking": [
         {
           "rank": 1,
-          "team": "欢乐豆",
-          "score": "200 Cal",
+          "team": "冰燕东升",
+          "score": "18:20",
           "points": 100
+        },
+        {
+          "rank": 2,
+          "team": "欢乐豆",
+          "score": "18:22",
+          "points": 96.2
         }
       ],
       "rows": [
@@ -554,9 +582,9 @@
           "lane": "lane 1",
           "time": "10:50-11:11",
           "scheduleLabel": "Heat 1 · lane 1",
-          "rank": 1,
-          "autoPoint": 100,
-          "score": "200 Cal"
+          "rank": 2,
+          "autoPoint": 96.2,
+          "score": "18:22"
         },
         {
           "id": "t08",
@@ -571,9 +599,9 @@
           "lane": "lane 2",
           "time": "10:50-11:11",
           "scheduleLabel": "Heat 1 · lane 2",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
+          "rank": 1,
+          "autoPoint": 100,
+          "score": "18:20"
         },
         {
           "id": "t07",
@@ -807,7 +835,14 @@
         "Tiebreak: 第三名运动员完成 9-6-3 全部内容的时间",
         "Scoring: 完成队伍按时间排名；CAP 后按总 reps 排名；同 reps 或同时间按 tiebreak 先后排序"
       ],
-      "ranking": [],
+      "ranking": [
+        {
+          "rank": 1,
+          "team": "欢乐豆",
+          "score": "06:18",
+          "points": 100
+        }
+      ],
       "rows": [
         {
           "id": "t02",
@@ -912,18 +947,35 @@
           "score": ""
         },
         {
-          "id": "t09",
-          "order": 9,
-          "name": "克拉克NPC",
+          "id": "t10",
+          "order": 10,
+          "name": "低配冲锋队",
           "athletes": [
-            "王蒙",
-            "小王子",
-            "心术"
+            "铁皮",
+            "耳朵",
+            "王律"
           ],
           "heat": "Heat 3",
           "lane": "lane 1",
           "time": "14:09-14:16",
           "scheduleLabel": "Heat 3 · lane 1",
+          "rank": "",
+          "autoPoint": "待算",
+          "score": ""
+        },
+        {
+          "id": "t12",
+          "order": 12,
+          "name": "邵乙 航空",
+          "athletes": [
+            "乙航",
+            "赵哥",
+            "Jerry"
+          ],
+          "heat": "Heat 3",
+          "lane": "lane 2",
+          "time": "14:09-14:16",
+          "scheduleLabel": "Heat 3 · lane 2",
           "rank": "",
           "autoPoint": "待算",
           "score": ""
@@ -938,23 +990,6 @@
             "Remi"
           ],
           "heat": "Heat 3",
-          "lane": "lane 2",
-          "time": "14:09-14:16",
-          "scheduleLabel": "Heat 3 · lane 2",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
-        },
-        {
-          "id": "t10",
-          "order": 10,
-          "name": "低配冲锋队",
-          "athletes": [
-            "铁皮",
-            "耳朵",
-            "王律"
-          ],
-          "heat": "Heat 3",
           "lane": "lane 3",
           "time": "14:09-14:16",
           "scheduleLabel": "Heat 3 · lane 3",
@@ -963,52 +998,18 @@
           "score": ""
         },
         {
-          "id": "t08",
-          "order": 8,
-          "name": "冰燕东升",
+          "id": "t09",
+          "order": 9,
+          "name": "克拉克NPC",
           "athletes": [
-            "冰川",
-            "燕子",
-            "小东"
+            "王蒙",
+            "小王子",
+            "心术"
           ],
           "heat": "Heat 3",
           "lane": "lane 4",
           "time": "14:09-14:16",
           "scheduleLabel": "Heat 3 · lane 4",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
-        },
-        {
-          "id": "t13",
-          "order": 13,
-          "name": "EGOTIST",
-          "athletes": [
-            "Andrea",
-            "二师兄",
-            "燕麦"
-          ],
-          "heat": "Heat 4",
-          "lane": "lane 1",
-          "time": "14:21-14:28",
-          "scheduleLabel": "Heat 4 · lane 1",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
-        },
-        {
-          "id": "t01",
-          "order": 1,
-          "name": "欢乐豆",
-          "athletes": [
-            "松旭",
-            "和维",
-            "丁豆豆"
-          ],
-          "heat": "Heat 4",
-          "lane": "lane 2",
-          "time": "14:21-14:28",
-          "scheduleLabel": "Heat 4 · lane 2",
           "rank": "",
           "autoPoint": "待算",
           "score": ""
@@ -1023,21 +1024,55 @@
             "老和"
           ],
           "heat": "Heat 4",
-          "lane": "lane 3",
+          "lane": "lane 1",
           "time": "14:21-14:28",
-          "scheduleLabel": "Heat 4 · lane 3",
+          "scheduleLabel": "Heat 4 · lane 1",
           "rank": "",
           "autoPoint": "待算",
           "score": ""
         },
         {
-          "id": "t12",
-          "order": 12,
-          "name": "邵乙 航空",
+          "id": "t08",
+          "order": 8,
+          "name": "冰燕东升",
           "athletes": [
-            "乙航",
-            "赵哥",
-            "Jerry"
+            "冰川",
+            "燕子",
+            "小东"
+          ],
+          "heat": "Heat 4",
+          "lane": "lane 2",
+          "time": "14:21-14:28",
+          "scheduleLabel": "Heat 4 · lane 2",
+          "rank": "",
+          "autoPoint": "待算",
+          "score": ""
+        },
+        {
+          "id": "t01",
+          "order": 1,
+          "name": "欢乐豆",
+          "athletes": [
+            "松旭",
+            "和维",
+            "丁豆豆"
+          ],
+          "heat": "Heat 4",
+          "lane": "lane 3",
+          "time": "14:21-14:28",
+          "scheduleLabel": "Heat 4 · lane 3",
+          "rank": 1,
+          "autoPoint": 100,
+          "score": "132 reps / 06:18"
+        },
+        {
+          "id": "t13",
+          "order": 13,
+          "name": "EGOTIST",
+          "athletes": [
+            "Andrea",
+            "二师兄",
+            "燕麦"
           ],
           "heat": "Heat 4",
           "lane": "lane 4",
@@ -1185,18 +1220,35 @@
           "score": ""
         },
         {
-          "id": "t09",
-          "order": 9,
-          "name": "克拉克NPC",
+          "id": "t10",
+          "order": 10,
+          "name": "低配冲锋队",
           "athletes": [
-            "王蒙",
-            "小王子",
-            "心术"
+            "铁皮",
+            "耳朵",
+            "王律"
           ],
           "heat": "Heat 3",
           "lane": "lane 2",
           "time": "15:35-15:51",
           "scheduleLabel": "Heat 3 · lane 2",
+          "rank": "",
+          "autoPoint": "待算",
+          "score": ""
+        },
+        {
+          "id": "t12",
+          "order": 12,
+          "name": "邵乙 航空",
+          "athletes": [
+            "乙航",
+            "赵哥",
+            "Jerry"
+          ],
+          "heat": "Heat 3",
+          "lane": "lane 3",
+          "time": "15:35-15:51",
+          "scheduleLabel": "Heat 3 · lane 3",
           "rank": "",
           "autoPoint": "待算",
           "score": ""
@@ -1211,23 +1263,6 @@
             "Remi"
           ],
           "heat": "Heat 3",
-          "lane": "lane 3",
-          "time": "15:35-15:51",
-          "scheduleLabel": "Heat 3 · lane 3",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
-        },
-        {
-          "id": "t10",
-          "order": 10,
-          "name": "低配冲锋队",
-          "athletes": [
-            "铁皮",
-            "耳朵",
-            "王律"
-          ],
-          "heat": "Heat 3",
           "lane": "lane 4",
           "time": "15:35-15:51",
           "scheduleLabel": "Heat 3 · lane 4",
@@ -1236,52 +1271,18 @@
           "score": ""
         },
         {
-          "id": "t08",
-          "order": 8,
-          "name": "冰燕东升",
+          "id": "t09",
+          "order": 9,
+          "name": "克拉克NPC",
           "athletes": [
-            "冰川",
-            "燕子",
-            "小东"
+            "王蒙",
+            "小王子",
+            "心术"
           ],
           "heat": "Heat 3",
           "lane": "lane 5",
           "time": "15:35-15:51",
           "scheduleLabel": "Heat 3 · lane 5",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
-        },
-        {
-          "id": "t13",
-          "order": 13,
-          "name": "EGOTIST",
-          "athletes": [
-            "Andrea",
-            "二师兄",
-            "燕麦"
-          ],
-          "heat": "Heat 4",
-          "lane": "lane 2",
-          "time": "15:56-16:12",
-          "scheduleLabel": "Heat 4 · lane 2",
-          "rank": "",
-          "autoPoint": "待算",
-          "score": ""
-        },
-        {
-          "id": "t01",
-          "order": 1,
-          "name": "欢乐豆",
-          "athletes": [
-            "松旭",
-            "和维",
-            "丁豆豆"
-          ],
-          "heat": "Heat 4",
-          "lane": "lane 3",
-          "time": "15:56-16:12",
-          "scheduleLabel": "Heat 4 · lane 3",
           "rank": "",
           "autoPoint": "待算",
           "score": ""
@@ -1296,6 +1297,40 @@
             "老和"
           ],
           "heat": "Heat 4",
+          "lane": "lane 2",
+          "time": "15:56-16:12",
+          "scheduleLabel": "Heat 4 · lane 2",
+          "rank": "",
+          "autoPoint": "待算",
+          "score": ""
+        },
+        {
+          "id": "t08",
+          "order": 8,
+          "name": "冰燕东升",
+          "athletes": [
+            "冰川",
+            "燕子",
+            "小东"
+          ],
+          "heat": "Heat 4",
+          "lane": "lane 3",
+          "time": "15:56-16:12",
+          "scheduleLabel": "Heat 4 · lane 3",
+          "rank": "",
+          "autoPoint": "待算",
+          "score": ""
+        },
+        {
+          "id": "t01",
+          "order": 1,
+          "name": "欢乐豆",
+          "athletes": [
+            "松旭",
+            "和维",
+            "丁豆豆"
+          ],
+          "heat": "Heat 4",
           "lane": "lane 4",
           "time": "15:56-16:12",
           "scheduleLabel": "Heat 4 · lane 4",
@@ -1304,13 +1339,13 @@
           "score": ""
         },
         {
-          "id": "t12",
-          "order": 12,
-          "name": "邵乙 航空",
+          "id": "t13",
+          "order": 13,
+          "name": "EGOTIST",
           "athletes": [
-            "乙航",
-            "赵哥",
-            "Jerry"
+            "Andrea",
+            "二师兄",
+            "燕麦"
           ],
           "heat": "Heat 4",
           "lane": "lane 5",
