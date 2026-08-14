@@ -7,7 +7,6 @@ import {
 
 import { OverallRankingTable } from "../components/RankingTables";
 import { SectionHeading } from "../components/SectionHeading";
-import { StatusBadge } from "../components/StatusBadge";
 import { getLaneLabel } from "../domain/scoreboard";
 import type { CompetitionData, EventId } from "../domain/types";
 
@@ -66,7 +65,6 @@ export function CompetitionPage({ data }: CompetitionPageProps) {
                   </span>
                   <span className="event-side">
                     <span className="event-time">{eventItem.window}</span>
-                    <StatusBadge status={eventItem.status} label={eventItem.statusText} />
                   </span>
                   {hasHeats ? <span className="chevron">{eventExpanded ? "收起" : "展开"}</span> : null}
                 </button>
@@ -87,7 +85,6 @@ export function CompetitionPage({ data }: CompetitionPageProps) {
                               <strong className="heat-name">{heat.name}</strong>
                               <span className="heat-meta">{heat.time} · {heat.teams.length} 支队伍</span>
                             </span>
-                            <StatusBadge status={heat.status} label={heat.statusText} />
                           </button>
                           {heatExpanded ? (
                             <div className="team-grid">
