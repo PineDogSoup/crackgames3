@@ -10,12 +10,19 @@ import {
   setScoreTiebreak,
   setScoreTime
 } from "../domain/scoreboard";
-import type { EventId, Scores } from "../domain/types";
+import type { EntryRow, EventId, Scores } from "../domain/types";
 import { EVENT_RULES } from "./constants";
 import { ManageActions } from "./ManageActions";
 import type { ManagerScope, ManagerState, ScheduleDraft } from "./types";
 
 type ScorePanel = "entry" | "ranking" | "schedule" | "roster";
+type ScoreInputField = "score" | "scoreTime" | "tiebreak";
+
+interface ScoreInputDraft {
+  score: string;
+  scoreTime: string;
+  tiebreak: string;
+}
 
 const SCORE_PANELS: Array<{ id: ScorePanel; label: string }> = [
   { id: "entry", label: "成绩录入" },
@@ -23,6 +30,18 @@ const SCORE_PANELS: Array<{ id: ScorePanel; label: string }> = [
   { id: "schedule", label: "Heat 安排" },
   { id: "roster", label: "队伍名单" }
 ];
+
+function scoreDraftKey(eventId: EventId, teamId: string): string {
+  return `${eventId}:${teamId}`;
+}
+
+function draftFromRow(row: EntryRow): ScoreInputDraft {
+  return {
+    score: row.scoreInput,
+    scoreTime: row.scoreTimeInput,
+    tiebreak: row.tiebreakInput
+  };
+}
 
 interface ScoreManagerProps {
   source: ManagerState["source"];
@@ -49,6 +68,7 @@ export function ScoreManager({
 }: ScoreManagerProps) {
   const [activeEventId, setActiveEventId] = useState<EventId>("e1");
   const [activePanel, setActivePanel] = useState<ScorePanel>("entry");
+  const [scoreInputDrafts, setScoreInputDrafts] = useState<Record<string, ScoreInputDraft>>({});
   const data = useMemo(() => hydrateCompetition({
     ...source,
     groups: schedule.groups,
@@ -83,6 +103,49 @@ export function ScoreManager({
   ), [data, scores]);
   const activeRule = EVENT_RULES[activeEventId];
   const enteredCount = Object.values(scores[activeEventId] ?? {}).filter(Boolean).length;
+
+  function updateScoreDraft(row: EntryRow, field: ScoreInputField, value: string): void {
+    const key = scoreDraftKey(activeEventId, row.id);
+    setScoreInputDrafts((current) => ({
+      ...current,
+      [key]: {
+        ...(current[key] ?? draftFromRow(row)),
+        [field]: value
+      }
+    }));
+  }
+
+  function commitScoreDraft(row: EntryRow): void {
+    const key = scoreDraftKey(activeEventId, row.id);
+    const draft = scoreInputDrafts[key];
+    if (!draft) return;
+
+    let nextScores = scores;
+    if (draft.score !== row.scoreInput) {
+      nextScores = setScorePrimary(nextScores, activeEventId, row.id, draft.score);
+    }
+    if (draft.scoreTime !== row.scoreTimeInput) {
+      nextScores = setScoreTime(nextScores, activeEventId, row.id, draft.scoreTime);
+    }
+    if (draft.tiebreak !== row.tiebreakInput) {
+      nextScores = setScoreTiebreak(nextScores, activeEventId, row.id, draft.tiebreak);
+    }
+
+    setScoreInputDrafts((current) => {
+      if (!current[key]) return current;
+      const { [key]: _committedDraft, ...rest } = current;
+      return rest;
+    });
+    if (nextScores !== scores) onChange(nextScores);
+  }
+
+  function scoreInputValue(row: EntryRow, field: ScoreInputField): string {
+    const draft = scoreInputDrafts[scoreDraftKey(activeEventId, row.id)];
+    if (draft) return draft[field];
+    if (field === "score") return row.scoreInput;
+    if (field === "scoreTime") return row.scoreTimeInput;
+    return row.tiebreakInput;
+  }
 
   return (
     <section className="manager-section" aria-labelledby="score-manager-title">
@@ -151,41 +214,38 @@ export function ScoreManager({
                         <input
                           aria-label={`${row.teamName} ${activeEventId} 成绩`}
                           inputMode={activeEventId === "e1" ? "text" : "numeric"}
-                          value={row.scoreInput}
+                          value={scoreInputValue(row, "score")}
                           placeholder={activeRule.primary}
-                          onChange={(event) => onChange(setScorePrimary(
-                            scores,
-                            activeEventId,
-                            row.id,
-                            event.target.value
-                          ))}
+                          onChange={(event) => updateScoreDraft(row, "score", event.target.value)}
+                          onBlur={() => commitScoreDraft(row)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") event.currentTarget.blur();
+                          }}
                         />
                         {row.hasScoreTime ? (
                           <input
                             aria-label={`${row.teamName} ${activeEventId} 完成时间`}
-                            inputMode="numeric"
-                            value={row.scoreTimeInput}
+                            inputMode="text"
+                            value={scoreInputValue(row, "scoreTime")}
                             placeholder={activeRule.time}
-                            onChange={(event) => onChange(setScoreTime(
-                              scores,
-                              activeEventId,
-                              row.id,
-                              event.target.value
-                            ))}
+                            onChange={(event) => updateScoreDraft(row, "scoreTime", event.target.value)}
+                            onBlur={() => commitScoreDraft(row)}
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter") event.currentTarget.blur();
+                            }}
                           />
                         ) : null}
                         {row.hasTiebreak ? (
                           <input
                             aria-label={`${row.teamName} ${activeEventId} tiebreak`}
-                            inputMode="numeric"
-                            value={row.tiebreakInput}
+                            inputMode="text"
+                            value={scoreInputValue(row, "tiebreak")}
                             placeholder={activeRule.tiebreak}
-                            onChange={(event) => onChange(setScoreTiebreak(
-                              scores,
-                              activeEventId,
-                              row.id,
-                              event.target.value
-                            ))}
+                            onChange={(event) => updateScoreDraft(row, "tiebreak", event.target.value)}
+                            onBlur={() => commitScoreDraft(row)}
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter") event.currentTarget.blur();
+                            }}
                           />
                         ) : null}
                       </div>
