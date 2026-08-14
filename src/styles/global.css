@@ -384,6 +384,11 @@ a:focus-visible {
   letter-spacing: 0.05em;
 }
 
+.ranking-head > :nth-child(n + 3),
+.event-rank-head > :nth-child(n + 3) {
+  text-align: right;
+}
+
 .rank-num,
 .total-score,
 .points {
