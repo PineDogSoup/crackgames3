@@ -9,6 +9,7 @@
   "packageManager": "pnpm@11.19.0",
   "scripts": {
     "dev": "vite",
+    "manage": "vite --config vite.manage.config.ts --configLoader runner --host 127.0.0.1 --port 4174 --open /manage.html",
     "check": "tsc --noEmit",
     "data:validate": "tsx scripts/validate-competition.ts",
     "data:build": "tsx scripts/generate-competition.ts",

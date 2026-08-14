@@ -72,6 +72,100 @@ source-data/competition.json
 
 不要直接维护 `public/data/competition.json`。它是生成文件，包含 hydrated 队伍、单项榜、总榜、录入结构和 `generatedAt`。
 
+## 本地管理工具
+
+本地管理工具提供“赛程管理”和“成绩管理”两个标签，只在本机运行，不会进入 GitHub Pages 的生产构建。
+
+```sh
+pnpm manage
+```
+
+默认打开：
+
+<http://127.0.0.1:4174/manage.html>
+
+每个管理标签底部有两项操作：
+
+- **保存本地**：把当前标签写入 `.local-data/competition-manager.json` 草稿，不修改 Git，也不会更新网站。
+- **发布到网站**：同步远端 `main`，把当前标签合并到最新赛事数据，运行校验、测试和构建，只提交两个赛事 JSON，然后推送 `origin/main`。GitHub Actions 会自动部署 Pages。
+
+### GitHub 推送权限
+
+公开仓库允许任何人查看和 clone，但不代表任何人都能更新成绩。当前工具会直接推送 `origin/main`，因此发布者必须同时满足：
+
+- 是仓库所有者，或者已被仓库所有者添加为 GitHub Collaborator 并接受邀请。
+- GitHub 账号对本仓库拥有写权限。
+- 本机 Git 已完成 HTTPS 或 SSH 认证。
+- `main` 没有禁止该账号直接推送的分支保护规则。如果以后开启“必须通过 Pull Request”，本工具的直接发布会被 GitHub 拒绝。
+
+仓库所有者可以在 GitHub 仓库的 **Settings → Collaborators** 中邀请另一位管理员。不要共享 GitHub 密码或 token，每位管理员应使用自己的 GitHub 账号和本机凭证。
+
+### 第二位管理员首次配置
+
+1. 接受仓库所有者发送的 GitHub Collaborator 邀请。
+2. 安装 Node.js 24 或更高版本。
+3. clone 仓库并进入项目：
+
+```sh
+git clone https://github.com/PineDogSoup/crackgames3.git
+cd crackgames3
+```
+
+4. 安装项目固定版本的 pnpm：
+
+```sh
+npm install --global pnpm@11.19.0
+hash -r
+pnpm --version
+```
+
+`pnpm --version` 应显示 `11.19.0`。如果暂时不想全局安装，也可以先执行 `npx --yes pnpm@11.19.0 install`，但正式发布建议安装固定版本的 pnpm。
+
+5. 安装依赖并配置自己的 Git 提交身份：
+
+```sh
+pnpm install
+git config user.name "你的名字"
+git config user.email "你的 GitHub 邮箱"
+```
+
+6. 确认远端、分支和推送权限：
+
+```sh
+git remote -v
+git branch --show-current
+git pull --ff-only origin main
+git push --dry-run origin main
+```
+
+远端应是 `PineDogSoup/crackgames3.git`，当前分支应是 `main`，最后两条命令不应报权限错误。
+
+### 每次更新成绩
+
+1. 进入仓库并取得 GitHub 最新版本：
+
+```sh
+cd crackgames3
+git pull --ff-only origin main
+pnpm manage
+```
+
+2. 保持终端窗口运行，在自动打开的 <http://127.0.0.1:4174/manage.html> 中进入“成绩管理”。
+3. 录入成绩并检查实时排名、积分和 Heat 安排。
+4. 点击 **保存本地**，确认页面显示“成绩已保存到本地”。这一步不会更新网站。
+5. 点击 **发布到网站**，再在确认框中点击 **确认发布**。
+6. 等待页面显示“已推送到 GitHub”和 commit 编号。在此之前不要关闭终端或管理页面。
+7. 在 GitHub Actions 中确认 **Deploy to GitHub Pages** 成功，再刷新公开网站。
+
+发布过程中工具会检查：当前分支是否为 `main`、远端是否有更新、Git 提交身份是否完整，以及赛事 JSON 是否存在工具之外的未提交修改。发布成功后只会提交：
+
+```text
+source-data/competition.json
+public/data/competition.json
+```
+
+如果发布失败，本地草稿仍保存在 `.local-data/competition-manager.json`。先阅读页面上的红色错误提示，不要重复录入成绩。工具不会读取或保存 GitHub token，所有 push 都使用管理员电脑现有的 Git 凭证。
+
 ## 目录结构
 
 ```text
